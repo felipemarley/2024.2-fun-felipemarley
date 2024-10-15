@@ -1,7 +1,6 @@
 module HW01 where
 
 import Prelude hiding (Num(..))
-import qualified Data.Type.Bool as HW01
 
 data Nat = O | S Nat
     deriving (Eq, Show)
@@ -10,7 +9,6 @@ data Nat = O | S Nat
 plus :: (Nat, Nat) -> Nat
 plus (n, O) = n
 plus (n, S m) = S (plus (n, m)) 
-
 --soma currificada
 (<+>) :: Nat -> Nat -> Nat
 n <+> O = n
@@ -20,11 +18,14 @@ n <+> S m = S (n <+> m)
 times :: (Nat, Nat) -> Nat
 times (n, O) = O
 times (n, S m) = plus (n, times (n, m)) 
-
 --multiplicacao currificado
 (<*>) :: Nat -> Nat -> Nat 
 n <*> O = O
 n <*> S m = n <+> (n HW01.<*> m)
+
+--dobro
+double :: Nat -> Nat
+double n = times(n, n)
 
 --fibonacci
 fib :: Nat -> Nat
