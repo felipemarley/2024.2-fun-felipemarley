@@ -34,6 +34,11 @@ n <^> O = S O
 n <^> (S O) = n
 n <^> (S m) = n HW01.<*> (n HW01.<*> S m)
 
+--predecessor
+p :: Nat -> Nat
+p O = O
+p (S n) = n
+
 --dobro
 double :: Nat -> Nat
 double n = times(n, n)
