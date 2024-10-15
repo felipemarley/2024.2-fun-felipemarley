@@ -14,6 +14,11 @@ plus (n, S m) = S (plus (n, m))
 n <+> O = n
 n <+> S m = S (n <+> m)
 
+--subtracao
+monus :: (Nat, Nat) -> Nat
+monus (n, O) = n
+
+
 --multiplicacao
 times :: (Nat, Nat) -> Nat
 times (n, O) = O
@@ -62,7 +67,7 @@ max (S n, S m) = S (Nat.max (n, m))
 min :: (Nat, Nat) -> Nat
 min (_, O) = O
 min (O, _) = O
-min (n, S m) = S (min (n, m))
+min (S n, S m) = S (min (n, m))
 --abreviação 
 o    = O
 so   = S o
