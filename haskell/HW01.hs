@@ -43,6 +43,11 @@ p (S n) = n
 double :: Nat -> Nat
 double n = times(n, n)
 
+--fatorial
+fact :: Nat -> Nat
+fact O = S O
+fact (S n) = times(S n, fact n)
+
 --fibonacci
 fib :: Nat -> Nat
 fib (S (S n)) = fib (S n) <+> fib n
