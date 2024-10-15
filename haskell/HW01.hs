@@ -23,6 +23,17 @@ times (n, S m) = plus (n, times (n, m))
 n <*> O = O
 n <*> S m = n <+> (n HW01.<*> m)
 
+--exponencial
+expo :: (Nat, Nat) -> Nat
+expo (n, O) = S O
+expo (n, S O) = n
+expo (n, S m) = times (n, times(n, S m))
+--exponencial currificado
+(<^>) :: Nat -> Nat -> Nat
+n <^> O = S O
+n <^> (S O) = n
+n <^> (S m) = n HW01.<*> (n HW01.<*> S m)
+
 --dobro
 double :: Nat -> Nat
 double n = times(n, n)
