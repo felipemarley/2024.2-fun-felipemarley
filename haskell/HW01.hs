@@ -26,7 +26,10 @@ times (n, S m) = plus (n, times (n, m))
 n <*> O = O
 n <*> S m = n <+> (n HW01.<*> m)
 
-
+--fibonacci
+fib :: Nat -> Nat
+fib (S (S n)) = fib (S n) <+> fib n
+fib _ = so
 
 
 --abreviação 
