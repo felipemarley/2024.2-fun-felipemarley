@@ -53,7 +53,7 @@ p (S n) = n
 
 --dobro
 double :: Nat -> Nat
-double n = times(n, n)
+double n = times(n, sso)
 
 --fatorial
 fact :: Nat -> Nat
