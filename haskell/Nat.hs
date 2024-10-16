@@ -17,6 +17,13 @@ n <+> S m = S (n <+> m)
 --subtracao
 monus :: (Nat, Nat) -> Nat
 monus (n, O) = n
+monus (O, _) = O
+monus (S n, S m) = monus (n, m)
+--subtracao currificada 
+(<->) :: Nat -> Nat -> Nat
+n <-> O = n
+O <-> _ = O
+S n <-> S m = n <-> m
 
 
 --multiplicacao
