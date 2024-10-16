@@ -25,7 +25,6 @@ n <-> O = n
 O <-> _ = O
 S n <-> S m = n <-> m
 
-
 --multiplicacao
 times :: (Nat, Nat) -> Nat
 times (n, O) = O
@@ -45,6 +44,23 @@ expo (n, S m) = times (n, expo (n, m))
 _ <^> O = S O
 O <^> _ = O
 n <^> (S m) = n Nat.<*> (n <^> m)
+
+
+--first 
+fst :: (Nat, Nat) -> Nat
+fst (n, m) = n
+--second
+snd :: (Nat, Nat) -> Nat
+snd (n, m) = m
+
+--divisao
+div :: (Nat, Nat) -> (Nat, Nat)
+div (_, O) = P.error "não divide por 0"
+div (O, _) = (O, O)
+div (n, S O) = (n, O)
+
+
+
 
 --predecessor
 p :: Nat -> Nat
@@ -75,6 +91,8 @@ min :: (Nat, Nat) -> Nat
 min (_, O) = O
 min (O, _) = O
 min (S n, S m) = S (min (n, m))
+
+
 --abreviação 
 o    = O
 so   = S o
