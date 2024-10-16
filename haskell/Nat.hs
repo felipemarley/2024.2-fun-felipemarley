@@ -21,7 +21,7 @@ monus (O, _) = O
 monus (S n, S m) = monus (n, m)
 --subtracao currificada 
 (<->) :: Nat -> Nat -> Nat
-n <-> O = n
+n <-> _ = n
 O <-> _ = O
 S n <-> S m = n <-> m
 
@@ -58,7 +58,8 @@ div :: (Nat, Nat) -> (Nat, Nat)
 div (_, O) = P.error "não divide por 0"
 div (O, _) = (O, O)
 div (n, S O) = (n, O)
-
+--div (n, m) = 
+    
 
 
 
