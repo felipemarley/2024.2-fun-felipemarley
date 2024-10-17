@@ -72,14 +72,18 @@ quot (n, m) =   if n >>= m
                      
 --resto
 rem :: (Nat, Nat) -> Nat
-rem _ = O
+rem (_, O) = P.error "couldnt div 0"
+rem (O, _) = O
+rem (n, m) =    if n >>= m 
+                then rem (n <-> m, m)
+                else m
 
 --divisao
 div :: (Nat, Nat) -> (Nat, Nat)
 div (_, O) = P.error "couldnt div 0"
 div (O, _) = (O, O)
 div (n, S O) = (n, O)
---div (n, m) = 
+div (n, m) = (quot (n, m), rem (n, m))
     
 
 
