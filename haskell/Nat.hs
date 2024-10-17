@@ -39,7 +39,7 @@ times (n, S m) = plus (n, times (n, m))
 --multiplicacao currificado
 (<*>) :: Nat -> Nat -> Nat 
 n <*> O = O
-n <*> S m = n <+> (n Nat.<*> m)
+n <*> S m = n <+> (n <*> m)
 
 --exponencial
 expo :: (Nat, Nat) -> Nat
@@ -71,17 +71,13 @@ n >>= m =  idenelse (max (n, m) P.== n) P.True P.False
 quot :: (Nat, Nat) -> Nat
 quot (_, O) = P.error "couldnt div 0"
 quot (O, _) = O
-quot (n, m) =   if n >>= m 
-                then S (quot (n <-> m, m))
-                else O
+quot (n, m) = idenelse (n >>= m) (S (quot (n <-> m, m))) O
                      
 --resto
 rem :: (Nat, Nat) -> Nat
 rem (_, O) = P.error "couldnt div 0"
 rem (O, _) = O
-rem (n, m) =    if n >>= m 
-                then rem (n <-> m, m)
-                else m
+rem (n, m) = idenelse (n >>= m) (rem (n <-> m, m)) n
 
 --divisao
 div :: (Nat, Nat) -> (Nat, Nat)
@@ -90,7 +86,15 @@ div (O, _) = (O, O)
 div (n, S O) = (n, O)
 div (n, m) = (quot (n, m), rem (n, m))
     
+--mdc
+gcd :: (Nat, Nat) -> Nat
+gcd (n, O) = n
+gcd (O, m) = m
+gcd (n, m) = gcd (m, rem (n, m))
 
+--mmc
+lcm :: (Nat, Nat) -> Nat
+lcm (n, m) = quot (n <*> m, gcd (n, m)) 
 
 
 --predecessor
