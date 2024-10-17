@@ -1,7 +1,6 @@
 # Functional Programming 2024.2, UFRN
 
-Student template repo.
-(Students should replace this text.)
+My personal repo doing sum stuff with haskell, by Felipe Marley
 
 ## Structure
 
