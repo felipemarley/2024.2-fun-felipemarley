@@ -1,6 +1,9 @@
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+{-# HLINT ignore "Use =<<" #-}
 module Nat where
 
 import qualified Prelude as P hiding (Num(..))
+import Delusion
 
 data Nat = O | S Nat
     deriving (P.Eq, P.Show)
@@ -21,9 +24,8 @@ monus (O, _) = O
 monus (S n, S m) = monus (n, m)
 --subtracao currificada 
 (<->) :: Nat -> Nat -> Nat
-n <-> _ = n
-O <-> _ = O
 S n <-> S m = n <-> m
+n <-> _ = n
 
 --multiplicacao
 times :: (Nat, Nat) -> Nat
@@ -53,9 +55,28 @@ fst (n, m) = n
 snd :: (Nat, Nat) -> Nat
 snd (n, m) = m
 
+--operador >=
+(>>=) :: Nat -> Nat -> P.Bool
+n >>= m =  idenelse (max (n, m) P.== n) P.True P.False
+--operador <=
+(<<=) :: Nat -> Nat -> P.Bool
+(<<=) = flip (>>=)
+
+--quociente 
+quot :: (Nat, Nat) -> Nat
+quot (_, O) = P.error "couldnt div 0"
+quot (O, _) = O
+quot (n, m) =   if n >>= m 
+                then S (quot (n <-> m, m))
+                else O
+                     
+--resto
+rem :: (Nat, Nat) -> Nat
+rem _ = O
+
 --divisao
 div :: (Nat, Nat) -> (Nat, Nat)
-div (_, O) = P.error "não divide por 0"
+div (_, O) = P.error "couldnt div 0"
 div (O, _) = (O, O)
 div (n, S O) = (n, O)
 --div (n, m) = 
