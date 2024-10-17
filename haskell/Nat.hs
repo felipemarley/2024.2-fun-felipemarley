@@ -6,7 +6,12 @@ import qualified Prelude as P hiding (Num(..))
 import Delusion
 
 data Nat = O | S Nat
-    deriving (P.Eq, P.Show)
+    deriving (P.Eq)
+
+instance P.Show Nat where
+  show O = "O"
+  show (S O) = "SO"
+  show (S n) = "S" P.++ P.show n
 
 --soma 
 plus :: (Nat, Nat) -> Nat
@@ -90,8 +95,8 @@ div (n, m) = (quot (n, m), rem (n, m))
 
 --predecessor
 p :: Nat -> Nat
-p O = O
 p (S n) = n
+p _ = P.error "no pred"
 
 --dobro
 double :: Nat -> Nat

@@ -4,7 +4,6 @@ module Delusion where
 flip :: (a -> b -> c) -> b -> a -> c
 flip f y x = f x y 
 
-
 --if then else caseiro
 idenelse :: Bool -> a -> a -> a
 idenelse True x _ = x
