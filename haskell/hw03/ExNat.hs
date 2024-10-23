@@ -49,9 +49,13 @@ instance Ord Nat where
     -- Howevener, you should define them WITHOUT using (<=).
     -- Both are binary functions: max m n = ..., etc.
 
-    min = undefined
+    min _ O = O
+    min O _ = O
+    min (S n) (S m) = S (min n m)
 
-    max = undefined
+    max n O = n
+    max O n = n
+    max (S n) (S m) = S (max n m)
 
 
 ----------------------------------------------------------------
@@ -125,7 +129,7 @@ divides = (<|>)
 -- x `absDiff` y = |x - y|
 -- (Careful here: this - is the real minus operator!)
 absDiff :: Nat -> Nat -> Nat
-absDiff = undefined
+absDiff n m = max n m <-> min n m
 
 (|-|) = absDiff
 
@@ -135,7 +139,8 @@ fact (S n) = S n <*> fact n
 
 -- signum of a number (-1, 0, or 1)
 sg :: Nat -> Nat
-sg = undefined
+sg O = O
+sg (S _) = so
 
 -- lo b a is the floor of the logarithm base b of a
 lo :: Nat -> Nat -> Nat
