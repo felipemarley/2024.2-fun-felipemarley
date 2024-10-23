@@ -1,9 +1,9 @@
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
-{-# HLINT ignore "Use =<<" #-}
 module Nat where
 
 import qualified Prelude as P hiding (Num(..))
 import Delusion
+import Bool (Bool(True))
+
 
 data Nat = O | S Nat
     deriving (P.Eq)
@@ -72,12 +72,21 @@ quot :: (Nat, Nat) -> Nat
 quot (_, O) = P.error "couldnt div 0"
 quot (O, _) = O
 quot (n, m) = idenelse (n >>= m) (S (quot (n <-> m, m))) O
+
+(</>) :: Nat -> Nat -> Nat
+_ </> O = P.error "couldnt div 0"
+O </> _ = O 
+n </> m = idenelse (n >>= m) (S ((n <-> m) </> m)) O
                      
 --resto
 rem :: (Nat, Nat) -> Nat
 rem (_, O) = P.error "couldnt div 0"
 rem (O, _) = O
 rem (n, m) = idenelse (n >>= m) (rem (n <-> m, m)) n
+(<%>) :: Nat -> Nat -> Nat
+_ <%> O = P.error "couldnt div 0"
+O <%> _ = O 
+n <%> m = idenelse (n >>= m) ((n <-> m) <%> m) n
 
 --divisao
 div :: (Nat, Nat) -> (Nat, Nat)
@@ -85,6 +94,7 @@ div (_, O) = P.error "couldnt div 0"
 div (O, _) = (O, O)
 div (n, S O) = (n, O)
 div (n, m) = (quot (n, m), rem (n, m))
+
     
 --mdc
 gcd :: (Nat, Nat) -> Nat
@@ -128,7 +138,7 @@ min (O, _) = O
 min (S n, S m) = S (min (n, m))
 
 
---abreviação 
+--abbs
 o    = O
 so   = S o
 sso  = S so

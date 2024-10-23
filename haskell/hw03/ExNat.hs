@@ -17,6 +17,8 @@ import Prelude
     , error
     , otherwise
     )
+--my version of "if-then-else"  
+import Delusion   
 
 -- Define evenerything that is undefined,
 -- without using standard Haskell functions.
@@ -31,17 +33,16 @@ data Nat where
 ----------------------------------------------------------------
 
 instance Show Nat where
-
-    -- zero  should be shown as O
-    -- three should be shown as SSSO
-    show = undefined
+    show O = "O"
+    show (S O) = "SO"
+    show (S n) = "S" ++ show n
 
 instance Eq Nat where
 
     (==) = undefined
 
 instance Ord Nat where
-
+    
     (<=) = undefined
 
     -- Ord does not REQUIRE defining min and max.
@@ -58,11 +59,13 @@ instance Ord Nat where
 ----------------------------------------------------------------
 
 isZero :: Nat -> Bool
-isZero = undefined
+isZero O = True
+isZero _ = False
 
 -- pred is the predecessor but we define zero's to be zero
 pred :: Nat -> Nat
-pred = undefined
+pred (S n) = n
+pred _ = O
 
 even :: Nat -> Bool
 even = undefined
@@ -77,34 +80,44 @@ odd = undefined
 
 -- addition
 (<+>) :: Nat -> Nat -> Nat
-(<+>) = undefined
+n <+> O = n
+n <+> S m = S (n <+> m)
 
 -- This is called the dotminus or monus operator
 -- (also: proper subtraction, arithmetic subtraction, ...).
 -- It behaves like subtraction, except that it returns 0
 -- when "normal" subtraction would return a negative number.
 (<->) :: Nat -> Nat -> Nat
-(<->) = undefined
+S n <-> S m = n <-> m
+n <-> _ = n
 
 -- multiplication
-(<*>) :: Nat -> Nat -> Nat
-(<*>) = undefined
+(<*>) :: Nat -> Nat -> Nat 
+n <*> O = O
+n <*> S m = n <+> (n <*> m)
 
 -- exponentiation
 (<^>) :: Nat -> Nat -> Nat
-(<^>) = undefined
+_ <^> O = S O
+O <^> _ = O
+n <^> (S m) = n <*> (n <^> m)
 
 -- quotient
 (</>) :: Nat -> Nat -> Nat
-(</>) = undefined
+_ </> O = error "couldnt div 0"
+O </> _ = O 
+n </> m = idenelse (n >= m) (S ((n <-> m) </> m)) O
 
 -- remainder
 (<%>) :: Nat -> Nat -> Nat
-(<%>) = undefined
+_ <%> O = error "couldnt div 0"
+O <%> _ = O 
+n <%> m = idenelse (n >= m) ((n <-> m) <%> m) n
 
 -- divides
-(<|>) :: Nat -> Nat -> Bool
-(<|>) = undefined
+--need fix
+(<|>) :: Nat -> Nat -> Bool 
+n <|> m = idenelse ((n <%> m) == O) True False
 
 divides = (<|>)
 
@@ -116,8 +129,9 @@ absDiff = undefined
 
 (|-|) = absDiff
 
-factorial :: Nat -> Nat
-factorial = undefined
+fact :: Nat -> Nat
+fact O = S O
+fact (S n) = S n <*> fact n
 
 -- signum of a number (-1, 0, or 1)
 sg :: Nat -> Nat
@@ -155,3 +169,52 @@ instance Num Nat where
       | x == 0    = undefined
       | otherwise = undefined
 
+
+--abbs
+o    = O
+so   = S o
+sso  = S so
+ssso = S sso
+sssso = S ssso
+ssssso = S sssso
+sssssso = S ssssso
+ssssssso = S sssssso
+sssssssso = S ssssssso
+ssssssssso = S sssssssso
+sssssssssso = S ssssssssso
+ssssssssssso = S sssssssssso
+sssssssssssso = S ssssssssssso
+ssssssssssssso = S sssssssssssso
+sssssssssssssso = S ssssssssssssso
+ssssssssssssssso = S sssssssssssssso
+sssssssssssssssso = S ssssssssssssssso
+ssssssssssssssssso = S sssssssssssssssso
+sssssssssssssssssso = S ssssssssssssssssso
+ssssssssssssssssssso = S sssssssssssssssssso
+sssssssssssssssssssso = S ssssssssssssssssssso
+ssssssssssssssssssssso = S sssssssssssssssssssso
+sssssssssssssssssssssso = S ssssssssssssssssssssso
+ssssssssssssssssssssssso = S sssssssssssssssssssssso
+sssssssssssssssssssssssso = S ssssssssssssssssssssssso
+ssssssssssssssssssssssssso = S sssssssssssssssssssssssso
+sssssssssssssssssssssssssso = S ssssssssssssssssssssssssso
+ssssssssssssssssssssssssssso = S sssssssssssssssssssssssssso
+sssssssssssssssssssssssssssso = S sssssssssssssssssssssssssssso
+ssssssssssssssssssssssssssssso = S ssssssssssssssssssssssssssssso
+sssssssssssssssssssssssssssssso = S sssssssssssssssssssssssssssssso
+ssssssssssssssssssssssssssssssso = S ssssssssssssssssssssssssssssssso
+sssssssssssssssssssssssssssssssso = S sssssssssssssssssssssssssssssssso
+ssssssssssssssssssssssssssssssssso = S ssssssssssssssssssssssssssssssssso
+sssssssssssssssssssssssssssssssssso = S sssssssssssssssssssssssssssssssssso
+ssssssssssssssssssssssssssssssssssso = S ssssssssssssssssssssssssssssssssssso
+sssssssssssssssssssssssssssssssssssso = S sssssssssssssssssssssssssssssssssssso
+ssssssssssssssssssssssssssssssssssssso = S ssssssssssssssssssssssssssssssssssssso
+sssssssssssssssssssssssssssssssssssssso = S sssssssssssssssssssssssssssssssssssssso
+ssssssssssssssssssssssssssssssssssssssso = S ssssssssssssssssssssssssssssssssssssssso
+sssssssssssssssssssssssssssssssssssssssso = S sssssssssssssssssssssssssssssssssssssssso
+ssssssssssssssssssssssssssssssssssssssssso = S ssssssssssssssssssssssssssssssssssssssssso
+sssssssssssssssssssssssssssssssssssssssssso = S sssssssssssssssssssssssssssssssssssssssssso
+ssssssssssssssssssssssssssssssssssssssssssso = S ssssssssssssssssssssssssssssssssssssssssssso
+sssssssssssssssssssssssssssssssssssssssssssso = S sssssssssssssssssssssssssssssssssssssssssssso
+ssssssssssssssssssssssssssssssssssssssssssssso = S ssssssssssssssssssssssssssssssssssssssssssssso
+sssssssssssssssssssssssssssssssssssssssssssssso = S sssssssssssssssssssssssssssssssssssssssssssssso
