@@ -20,10 +20,6 @@ import Prelude
 --my version of "if-then-else"  
 import Delusion   
 
--- Define evenerything that is undefined,
--- without using standard Haskell functions.
--- (Hint: recursion is your friend!)
-
 data Nat where
   O :: Nat
   S :: Nat -> Nat
@@ -66,7 +62,6 @@ isZero :: Nat -> Bool
 isZero O = True
 isZero _ = False
 
--- pred is the predecessor but we define zero's to be zero
 pred :: Nat -> Nat
 pred (S n) = n
 pred _ = O
@@ -76,7 +71,6 @@ even n = idenelse (n <|> sso) True False
 
 odd :: Nat -> Bool
 odd n = idenelse (even n) False True
-
 
 ----------------------------------------------------------------
 -- operations
@@ -119,7 +113,6 @@ O <%> _ = O
 n <%> m = idenelse (n >= m) ((n <-> m) <%> m) n
 
 -- divides
---need fix
 (<|>) :: Nat -> Nat -> Bool 
 n <|> O = False
 n <|> m = idenelse ((n <%> m) == O) True False
@@ -171,10 +164,9 @@ instance Num Nat where
     abs n = n
     signum = sg
     fromInteger x
-      | x < 0     = undefined
-      | x == 0    = undefined
-      | otherwise = undefined
-
+      | x < 0     = error "coundn't be negative"
+      | x == 0    = O
+      | otherwise = S (fromInteger (x - 1))
 
 --abbs
 o    = O
