@@ -39,15 +39,15 @@ instance Show Nat where
 
 instance Eq Nat where
 
-    (==) = undefined
+    (==) O O = True
+    (==) (S n) (S m) = (==) n m
+    (==) _ _ = False
 
 instance Ord Nat where
     
-    (<=) = undefined
-
-    -- Ord does not REQUIRE defining min and max.
-    -- Howevener, you should define them WITHOUT using (<=).
-    -- Both are binary functions: max m n = ..., etc.
+    (<=) O _ = True
+    (<=) _ O = False
+    (<=) (S n) (S m) = (<=) n m
 
     min _ O = O
     min O _ = O
@@ -72,10 +72,10 @@ pred (S n) = n
 pred _ = O
 
 even :: Nat -> Bool
-even = undefined
+even n = idenelse (n <|> sso) True False
 
 odd :: Nat -> Bool
-odd = undefined
+odd n = idenelse (even n) False True
 
 
 ----------------------------------------------------------------
@@ -121,6 +121,7 @@ n <%> m = idenelse (n >= m) ((n <-> m) <%> m) n
 -- divides
 --need fix
 (<|>) :: Nat -> Nat -> Bool 
+n <|> O = False
 n <|> m = idenelse ((n <%> m) == O) True False
 
 divides = (<|>)
