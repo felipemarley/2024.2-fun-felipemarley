@@ -24,36 +24,28 @@ instance (Ord Nat) where
     (S n) <= O     = False
     (S n) <= (S m) = n <= m
 
-{- explicit definitions of add, mul, exp:
-
+add :: Nat -> Nat -> Nat
 add n O     = n
 add n (S m) = S (add m n)
 
+mul :: Nat -> Nat -> Nat
 mul n O     = O
 mul n (S m) = add (mul n m) n
 
+exp :: Nat -> Nat -> Nat
 exp n O     = S O
 exp n (S m) = mul (exp n m) n
 
--}
-
-------------------------------------------------
-
--- substitute 'undefined' by the correct number
--- to define each of those functions:
-
-add :: Nat -> Nat -> Nat
-add = hyper undefined
-
-mul :: Nat -> Nat -> Nat
-mul = hyper undefined
-
-exp :: Nat -> Nat -> Nat
-exp = hyper undefined
-
--- hyper n should return the n'th operation in the sequence:
--- (..?..), add, mul, exp, ...?
-
 hyper :: Integral i => i -> (Nat -> Nat -> Nat)
-hyper = undefined
+hyper 0 = add 
+hyper 1 = mul
+hyper 2 = exp 
+hyper _ = error "unexpected i"
 
+--abbs
+o    = O
+so   = S o
+sso  = S so
+ssso = S sso
+sssso = S ssso
+ssssso = S sssso

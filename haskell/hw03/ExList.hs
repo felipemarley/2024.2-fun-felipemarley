@@ -13,6 +13,8 @@ import Prelude
 import qualified Prelude   as P
 import qualified Data.List as L
 import qualified Data.Char as C
+import ExNat (Nat(O))
+import Distribution.Simple.Utils (xargs)
 
 {- import qualified ... as ... ?
 
@@ -58,16 +60,19 @@ write [u,v]     for our u `Cons` (v `Cons` Nil)
 -}
 
 head :: [a] -> a
-head = undefined
+head (x::_) = x
+
 
 tail :: [a] -> [a]
-tail = undefined
+tail (_::xs) = xs
 
 null :: [a] -> Bool
 null = undefined
 
 length :: Integral i => [a] -> i
-length = undefined
+length [] = 0
+length (_::xs) = length xs
+
 
 sum :: Num a => [a] -> a
 sum = undefined
