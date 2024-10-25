@@ -60,18 +60,19 @@ write [u,v]     for our u `Cons` (v `Cons` Nil)
 -}
 
 head :: [a] -> a
-head (x::_) = x
+head (x : _) = x
 
 
 tail :: [a] -> [a]
-tail (_::xs) = xs
+tail (_:xs) = xs
 
 null :: [a] -> Bool
-null = undefined
+null [] = True
+null _ = False
 
 length :: Integral i => [a] -> i
 length [] = 0
-length (_::xs) = length xs
+length (_:xs) = length xs
 
 
 sum :: Num a => [a] -> a
