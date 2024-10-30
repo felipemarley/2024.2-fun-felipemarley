@@ -15,6 +15,8 @@ import qualified Data.List as L
 import qualified Data.Char as C
 import ExNat (Nat(O))
 import Distribution.Simple.Utils (xargs)
+import Data.Sequence.Internal.Sorting (QList(Nil))
+import Delusion (idenelse)
 
 {- import qualified ... as ... ?
 
@@ -58,6 +60,10 @@ write (x : xs)  for our Cons x xs
 write [u,v]     for our u `Cons` (v `Cons` Nil)
 
 -}
+
+data List a where
+  Nil  :: List a
+  Cons :: a -> List a -> List a
 
 head :: [a] -> a
 head (x : _) = x
@@ -138,8 +144,15 @@ infixl 5 +++
 
 -- (!!)
 
--- filter
--- map
+filter :: (a -> Bool) -> List a -> List a
+filter _ Nil = Nil
+filter stuff (Cons x xs) = idenelse (stuff x) (Cons x (filter stuff xs)) (filters stuff xs) 
+
+map :: (a -> b) -> List a -> List b
+map _ Nil = Nil 
+map f (Cons x xs) = Cons (f x) (map x xs)
+
+
 
 -- cycle
 -- repeat
